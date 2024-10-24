@@ -49,6 +49,7 @@ const Cart = () => {
   useEffect(() => {
     window.scrollTo(0, 0);  // Scroll to top when the page loads
   }, []);
+
   return (
     <div>
     {showPopup?<Popup/>:""}

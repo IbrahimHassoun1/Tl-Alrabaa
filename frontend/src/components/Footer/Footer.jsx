@@ -19,8 +19,8 @@ const Footer = () => {
             <div className="right w-full md:w-1/5 text-center">
                 <h1 className='font-extrabold text-3xl' id='contact'>Contact Us</h1>
                 <ul className='pt-5 font-extralight'>
-                  <li className='cursor-pointer'>Email</li>
-                  <li className='cursor-pointer'>Phone Number</li>
+                  <li className='cursor-pointer'><a href="mailto:Tlalrabaa2021@gmail.com">Email</a></li>
+                  <li className='cursor-pointer'><a href="tel:+964-0750-546-2539">Phone Number</a></li>
                 </ul>
             </div>
         </div>

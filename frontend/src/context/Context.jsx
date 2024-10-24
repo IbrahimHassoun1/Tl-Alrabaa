@@ -97,19 +97,36 @@ const addToCart = debounce(async (id, collectionName, price) => {
     setTotPrice(prev => prev + price);
 }, 0); // Adjust the delay as needed
 
+const [forceRender, setForceRender] = useState(false);  // To trigger re-render
+
 const removeFromCart = debounce((id, collectionName, price) => {
     setCartItems(prev => {
-        const updatedCart = { ...prev };
+        const updatedCart = { ...prev }; // Copy the previous cart
+
+        // If the item exists in the cart, reduce its quantity
         if (updatedCart[collectionName + "_" + id]) {
             updatedCart[collectionName + "_" + id] -= 1;
+
+            // If the quantity is zero, remove the item from the cart
             if (updatedCart[collectionName + "_" + id] <= 0) {
                 delete updatedCart[collectionName + "_" + id];
             }
         }
-        return updatedCart;
+
+        // Return a new object to ensure state updates
+        return { ...updatedCart }; // Create a new object reference
     });
-    setTotPrice(prev => prev - price);
+
+    // Update total price (making sure it doesn't go negative)
+    setTotPrice(prev => Math.max(prev - price, 0)); // Prevent negative prices
 }, 50);
+
+
+  // Optional: You can use `useEffect` to listen for changes in cartItems and force a re-render
+  useEffect(() => {
+    // Every time the cartItems state changes, trigger a re-render
+    setForceRender(prev => !prev);
+  }, [cartItems]);
 
 
 
