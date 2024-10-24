@@ -24,7 +24,7 @@ const MyProvider = ({ children }) => {
     const [data,setdata]=useState({})
     const [imageFile,setImageFile]=useState(null)
     const [productIsChosen,setProductIsChosen]=useState(false)
-    const URL="https://tl-alrabaa-production.up.railway.app/"
+    const URL="https://tl-alrabaa-production.up.railway.app"
 
     const [totPrice,setTotPrice]=useState(0)
 
@@ -47,7 +47,7 @@ const MyProvider = ({ children }) => {
 
     const getShisha = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/api/shisha/list");
+            const response = await axios.get(URL+"/api/shisha/list");
             
             setShishaList(response.data.data); 
         } catch (error) {
@@ -63,7 +63,7 @@ const MyProvider = ({ children }) => {
 
     const getParts = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/api/parts/list");
+            const response = await axios.get(URL+"/api/parts/list");
             
             setPartsList(response.data.data); 
         } catch (error) {
