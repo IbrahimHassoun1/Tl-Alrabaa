@@ -1,0 +1,10 @@
+/* Optional: This helps to define max-height for transitions */
+.transition-max-height {
+    transition: max-height 0.3s ease-in-out;
+  }
+  
+  /* To rotate the arrow, add these classes to your CSS */
+  .rotate-180 {
+    transform: rotate(180deg);
+  }
+  
