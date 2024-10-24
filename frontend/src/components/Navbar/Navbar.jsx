@@ -25,7 +25,7 @@ const {setShowPopup}=useContext(MyContext)
     <div className='bg-primary Navbar sticky top-0 w-full  h-20 font-primary font-medium text-2xl flex ' >
 
         <div className='m-auto flex containers justify-between w-full h-16 text-tertiary'>
-            <Link to="/" className={`left-nav ${isActive==="home"?"active":""} cursor-pointer`} onClick={()=>{setIsActive("home");scrollToSection("home")}} >
+            <Link to="/" className={`left-nav ${isActive==="home"?"active":""} mr-auto sm:mr-0  cursor-pointer`} onClick={()=>{setIsActive("home");scrollToSection("home")}} >
                 <img src={logo} alt="logo" className='w-full h-full object-contain cursor-pointer'/>
             </Link>
 
@@ -99,8 +99,8 @@ const {setShowPopup}=useContext(MyContext)
                 </ul>
             </div>
 
-            <div className='alternate sm:hidden my-auto relative cursor-pointer' onClick={()=>setBurgerOpen(prev=>!prev)}>
-            Burger icon
+            <div className='alternate sm:hidden my-auto relative cursor-pointer mr-3' onClick={()=>setBurgerOpen(prev=>!prev)}>
+            Menu
 
                     <div className='absolute top-12 right-0 h-fit bg-tertiary rounded-md w-40'>
                         <ul className={` flex-col text-primary items-center gap-3 ${burgerOpen?"flex":"hidden"}`}>

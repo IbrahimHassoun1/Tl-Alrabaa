@@ -30,7 +30,7 @@ const MyProvider = ({ children }) => {
 
     const getTobacco = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/api/tobacco/list");
+            const response = await axios.get(URL+"/api/tobacco/list");
             
             setTobaccoList(response.data.data);
         } catch (error) {

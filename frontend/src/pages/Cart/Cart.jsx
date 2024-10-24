@@ -52,7 +52,7 @@ const Cart = () => {
     {showPopup?<Popup/>:""}
       
     <div className='cart  min-h-screen bg-tertiary'>
-      <div className="content flex flex-wrap containers m-auto min-h-screen h-screen">
+      <div className="content flex flex-wrap-reverse containers m-auto min-h-screen h-screen">
 
         <div className="left h-full w-full md:w-1/5  md:border-r-2 border-primary flex flex-col content-end">
 
