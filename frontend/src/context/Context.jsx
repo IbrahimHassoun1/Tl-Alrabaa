@@ -24,7 +24,7 @@ const MyProvider = ({ children }) => {
     const [data,setdata]=useState({})
     const [imageFile,setImageFile]=useState(null)
     const [productIsChosen,setProductIsChosen]=useState(false)
-    const URL="http://localhost:5000"
+    const URL="https://tl-alrabaa-production.up.railway.app/"
 
     const [totPrice,setTotPrice]=useState(0)
 
