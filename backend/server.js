@@ -3,11 +3,11 @@ import cors from "cors"
 import connectDB from './config/db.js'
 import tobaccoRouter from './routers/tobaccoRouter.js'
 import ShishaRouter from './routers/shishaRouter.js'
-import cors from 'cors'; // Ensure you import cors
+
 import PartsRouter from './routers/partsRouter.js';
 import userRouter from './routers/userRouter.js';
 import dotenv from 'dotenv';
-import connectDB from './config/db.js'; // Adjust the path as necessary
+
 
 dotenv.config();
 
