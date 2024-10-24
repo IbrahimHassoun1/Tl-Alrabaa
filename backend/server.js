@@ -15,10 +15,11 @@ const app = express();
 
 // CORS configuration
 app.use(cors({
-    origin: "https://tl-alrabaa.vercel.app", // Update this with your actual frontend URL
+    origin: ["https://tl-alrabaa.vercel.app", "https://tl-alrabaa-frontend-5ef7f6dhk-ibrahim-hassouns-projects.vercel.app"], // Include both domains if necessary
     methods: ["POST", "GET", "DELETE", "PATCH"],
     credentials: true
 }));
+
 
 const PORT = process.env.PORT || 5000;
 
