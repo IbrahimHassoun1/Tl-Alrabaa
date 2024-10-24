@@ -28,7 +28,7 @@ const ItemCard = ({ id,name, description, image, price, rating ,collectionName,a
   return (
 
     <FadeInSection className="m-auto mt-3 min-w-52 h-fit rounded overflow-hidden shadow-lg bg-white p-2 text-center">
-      <img className="w-full h-48 object-cover" src={URL+"/images/"+image} alt={name} />
+      <img className="w-full h-48 object-cover" src={URL+"/images/"+image} alt={name} loading='lazy'/>
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{name}</div>
         <p className="text-gray-700 text-base">{description}</p>

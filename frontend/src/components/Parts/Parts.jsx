@@ -3,6 +3,7 @@ React
 import ItemCard from '../itemCard/ItemCard';
 
 import { MyContext } from '../../context/Context';
+import FadeInSection from '../FadeInSection/FadeInSection';
 
 const Parts = () => {
 
@@ -10,7 +11,11 @@ const Parts = () => {
   const [dropDownType, setDropDownType] = useState(true); // Changed to boolean
   const [selectedType,setSelectedType]=useState("")
   const {partsList}=useContext(MyContext)
-
+  const filteredParts = partsList.filter((item) => {
+    return (
+      (item.type === selectedType||  selectedType==="") 
+    );
+  });
 
 
   return (
@@ -22,7 +27,7 @@ const Parts = () => {
         <div className="main-table w-full flex flex-wrap">
           <div className="queries mt-3 pb-14 flex flex-col mx-auto w-fit md:w-1/6  h-fit bg-primary text-tertiary  text-start">
             <div className='ml-4 mt-4 cursor-pointer text-center text-4xl font-bold text-secondary'>Filter</div>
-            <input type="text" placeholder='Search' className='w-4/6 m-auto mt-2 mb-2 rounded-lg'/>
+            {/* <input type="text" placeholder='Search' className='w-4/6 m-auto mt-2 mb-2 rounded-lg'/> */}
             <div className='ml-4'>
               <span className='cursor-pointer' onClick={() => setDropDownType(!dropDownType)}>
                 Parts 
@@ -44,7 +49,7 @@ const Parts = () => {
               </ul>
             </div>
 
-            
+            <button className='bg-secondary text-tertiary hover:opacity-90 active:opacity-85 w-3/6 m-auto mt-7 rounded-md font-medium' onClick={()=>{setSelectedType("")}}>Reset</button>
             
           </div>
 
@@ -52,13 +57,22 @@ const Parts = () => {
           
           
           {
-            partsList.map((item)=>{
-              if(item.type===selectedType||selectedType===""){
-                return <ItemCard key={item._id} collectionName={item.collectionName} id={item._id} name={item.name} description={item.description} image={item.image} price={item.price} rating={item.rating} flavor={item.flavor} action='add'/>
-              }
-              return null
-              
-            })
+            filteredParts.length === 0 ? 
+              <FadeInSection className='text-primary text-4xl m-auto'>No items found</FadeInSection> :
+              filteredParts.map((item) => (
+                 <ItemCard
+                  key={item._id}
+                  collectionName={item.collectionName}
+                  id={item._id}
+                  name={item.name}
+                  description={item.description}
+                  image={item.image}
+                  price={item.price}
+                  rating={item.rating}
+                  flavor={item.flavor}
+                  action="add"
+                />
+              ))
             }
 
           </div>

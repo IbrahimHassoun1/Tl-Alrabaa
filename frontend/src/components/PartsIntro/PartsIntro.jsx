@@ -27,7 +27,7 @@ const PartsIntro = () => {
         <FadeInSection className="PartsIntro-content w-full containers m-auto flex flex-wrap"> 
 
             <div className="left w-full sm:w-3/6 min-h-80 rounded-xl flex flex-col">
-            <img src={index===1?parts1:index===2?parts2:parts3} alt="" className='h-72 w-fit object-cover rounded-xl mx-auto'/>
+            <img src={index===1?parts1:index===2?parts2:parts3}  loading='lazy' alt="" className='h-72 w-fit object-cover rounded-xl mx-auto'/>
                 <ul className='m-auto flex'>
                   <li className={`${index===1?"bg-tertiary":"bg-transparent"} h-2 w-2 rounded-full mr-1 border cursor-pointer`} onClick={()=>setIndex(1)}></li>
                   <li className={`${index===2?"bg-tertiary":"bg-transparent"} h-2 w-2 rounded-full mr-1 border cursor-pointer`} onClick={()=>setIndex(2)}></li>

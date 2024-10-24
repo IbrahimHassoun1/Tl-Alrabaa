@@ -5,6 +5,7 @@ import "./Tobacco.css"
 
 import { MyContext } from '../../context/Context.jsx';
 import ItemCard from '../itemCard/ItemCard.jsx';
+import FadeInSection from '../FadeInSection/FadeInSection.jsx';
 
 const Tobacco = () => {
 
@@ -13,7 +14,14 @@ const Tobacco = () => {
   const [selectedFlavor,setSelectedFlavor]=useState("")
   const [selectedSize,setSelectedSize]=useState("")
   const {tobaccoList}=useContext(MyContext)
- 
+  const filteredTobaccos = tobaccoList.filter((item) => {
+    return (
+      (item.flavor === selectedFlavor && item.size === selectedSize) ||
+      (selectedFlavor === "" && item.size === selectedSize) ||
+      (item.flavor === selectedFlavor && selectedSize === "") ||
+      (selectedFlavor === "" && selectedSize === "")
+    );
+  });
   
 
   return (
@@ -25,7 +33,7 @@ const Tobacco = () => {
         <div className="main-table w-full flex flex-wrap">
           <div className="queries mt-3 flex flex-col mx-auto w-fit md:w-1/6  h-fit bg-primary text-tertiary  text-start">
             <div className='ml-4 mt-4 cursor-pointer text-center text-4xl font-bold text-secondary'>Filter</div>
-            <input type="text" placeholder='Search' className='w-4/6 m-auto mt-2 mb-2 rounded-lg'/>
+            {/* <input type="text" placeholder='Search' className='w-4/6 m-auto mt-2 mb-2 rounded-lg'/> */}
             <div className='ml-4'>
               <span className='cursor-pointer' onClick={() => setDropDownFlavor(!dropDownFlavor)}>
                 Flavor 
@@ -55,23 +63,32 @@ const Tobacco = () => {
                 <li className={`pl-2 cursor-pointer ${selectedSize==="medium"?"text-secondary":""}`} onClick={()=>{setSelectedSize("medium")}}>Medium</li>
                 <li className={`pl-2 cursor-pointer ${selectedSize==="large"?"text-secondary":""}`} onClick={()=>{setSelectedSize("large")}}>Large</li>
               </ul>
+              
             </div>
-            
+            <button className='mb-3 bg-secondary text-tertiary hover:opacity-90 active:opacity-85 w-3/6 m-auto rounded-md font-medium' onClick={()=>{setSelectedFlavor("");setSelectedSize("")}}>Reset</button>
           </div>
 
           <div className=" list m-auto w-full md:w-5/6   flex flex-wrap">
           
             {
-            tobaccoList.map((item)=>{
-              if((item.flavor === selectedFlavor && item.size === selectedSize) ||
-              (selectedFlavor === "" && item.size === selectedSize) ||
-              (item.flavor === selectedFlavor && selectedSize === "") ||
-              (selectedFlavor === "" && selectedSize === "")){
-                return <ItemCard key={item._id} collectionName={item.collectionName} id={item._id}name={item.name} description={item.description} image={item.image} price={item.price} rating={item.rating} flavor={item.flavor} action='add'/>
-              }
-              
-            })
+            filteredTobaccos.length === 0 ? 
+              <FadeInSection className='text-primary text-4xl m-auto'>No items found</FadeInSection> :
+              filteredTobaccos.map((item) => (
+                 <ItemCard
+                  key={item._id}
+                  collectionName={item.collectionName}
+                  id={item._id}
+                  name={item.name}
+                  description={item.description}
+                  image={item.image}
+                  price={item.price}
+                  rating={item.rating}
+                  flavor={item.flavor}
+                  action="add"
+                />
+              ))
             }
+            
 
           </div>
         </div>

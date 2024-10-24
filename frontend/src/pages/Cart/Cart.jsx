@@ -46,7 +46,9 @@ const Cart = () => {
     console.log(shishaCartItems)
     console.log(partsCartItems)
   })
-
+  useEffect(() => {
+    window.scrollTo(0, 0);  // Scroll to top when the page loads
+  }, []);
   return (
     <div>
     {showPopup?<Popup/>:""}
