@@ -10,10 +10,11 @@ dotenv.config();
 
 const app=express()
 app.use(cors({
-    origin:"",
-    methods:["POST","GET","DELETE","PATCH"],
-    credentials:true
-}))
+    origin: "https://tl-alrabaa.vercel.app", // Update this with your actual frontend URL
+    methods: ["POST", "GET", "DELETE", "PATCH"],
+    credentials: true
+}));
+
 
 
 const PORT = process.env.PORT || 5000;
