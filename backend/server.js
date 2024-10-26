@@ -7,6 +7,7 @@ import ShishaRouter from './routers/shishaRouter.js'
 import PartsRouter from './routers/partsRouter.js';
 import userRouter from './routers/userRouter.js';
 import dotenv from 'dotenv';
+import cartRouter from './routers/cartRouter.js'
 
 
 dotenv.config();
@@ -38,6 +39,7 @@ app.use("/api/tobacco", tobaccoRouter);
 app.use("/api/shisha", ShishaRouter);
 app.use("/api/parts", PartsRouter);
 app.use("/api/user", userRouter);
+app.use("/api/cart", cartRouter);
 app.use("/images", express.static("uploads"));
 
 app.listen(PORT, () => {

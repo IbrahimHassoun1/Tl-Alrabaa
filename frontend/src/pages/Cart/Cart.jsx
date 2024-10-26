@@ -3,6 +3,7 @@ import CartItem from '../../components/cartItem/CartItem'
 import { MyContext } from '../../context/Context'
 import Popup from '../../components/Popup/Popup'
 
+
 React
 
 const Cart = () => {
@@ -11,8 +12,9 @@ const Cart = () => {
   const [tobaccoCartItems,setTobaccoCartItems]=useState([])
   const [shishaCartItems,setShishaCartItems]=useState([])
   const [partsCartItems,setPartsCartItems]=useState([])
-  
+
   useEffect(()=>{
+    
     const arrayOfAllItems=Object.entries(cartItems)
     console.log(arrayOfAllItems)
 

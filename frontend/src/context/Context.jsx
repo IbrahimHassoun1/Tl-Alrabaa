@@ -18,6 +18,12 @@ const MyProvider = ({ children }) => {
     const [partsList, setPartsList] = useState([]);
     
     const [token,setToken]=useState("")
+    useEffect(()=>{
+        if (localStorage.token){
+            setToken(localStorage.token)
+        }
+        setLoggedIn(true)
+    },[])
 
     const [cartItems, setCartItems] = useState({});
     const [imagePreview, setImagePreview] = useState(null);
@@ -92,22 +98,27 @@ const addToCart = debounce(async (id, collectionName, price) => {
         } else {
             updatedCart[collectionName + "_" + id] += 1;
         }
+        
         return updatedCart;
     });
     setTotPrice(prev => prev + price);
-}, 0); // Adjust the delay as needed
+    if(token){
+        await axios.post(URL+"/api/cart/add",{id,collectionName},{headers:{token}})
+    }
+}, 0); 
 
-const [forceRender, setForceRender] = useState(false);  // To trigger re-render
+
+
 
 const removeFromCart = debounce((id, collectionName, price) => {
     setCartItems(prev => {
-        const updatedCart = { ...prev }; // Copy the previous cart
+        const updatedCart = { ...prev }; 
 
-        // If the item exists in the cart, reduce its quantity
+        
         if (updatedCart[collectionName + "_" + id]) {
             updatedCart[collectionName + "_" + id] -= 1;
 
-            // If the quantity is zero, remove the item from the cart
+            
             if (updatedCart[collectionName + "_" + id] <= 0) {
                 delete updatedCart[collectionName + "_" + id];
             }
@@ -122,11 +133,28 @@ const removeFromCart = debounce((id, collectionName, price) => {
 }, 50);
 
 
-  // Optional: You can use `useEffect` to listen for changes in cartItems and force a re-render
-  useEffect(() => {
-    // Every time the cartItems state changes, trigger a re-render
-    setForceRender(prev => !prev);
-  }, [cartItems]);
+const loadCartData = async (token) => {
+    const response = await axios.get(URL + "/api/cart/get", {
+        headers: { token }
+    });
+    setCartItems(response.data.cartData);
+    console.log(cartItems)
+};  
+console.log(loadCartData())
+
+useEffect(()=>{
+    async function loadData() {
+        await getTobacco();
+        await getShisha();
+        await getParts();
+        if (localStorage.getItem("token")){
+            setToken(localStorage.getItem("token"))
+            await loadCartData(localStorage.getItem("token"))
+        }
+    }
+    loadData()
+  })
+
 
 
 
