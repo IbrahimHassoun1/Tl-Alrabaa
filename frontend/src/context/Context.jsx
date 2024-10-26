@@ -105,63 +105,71 @@ const addToCart = debounce(async (id, collectionName, price) => {
     if(token){
         await axios.post(URL+"/api/cart/add",{id,collectionName},{headers:{token}})
     }
-}, 0); 
+}, 450); 
 
 
 
 
-const removeFromCart = debounce((id, collectionName, price) => {
+const removeFromCart = debounce(async (id, collectionName, price) => {
     setCartItems(prev => {
-        const updatedCart = { ...prev }; 
+        const updatedCart = { ...prev };
 
-        
         if (updatedCart[collectionName + "_" + id]) {
             updatedCart[collectionName + "_" + id] -= 1;
 
-            
             if (updatedCart[collectionName + "_" + id] <= 0) {
                 delete updatedCart[collectionName + "_" + id];
             }
         }
 
-        // Return a new object to ensure state updates
-        return { ...updatedCart }; // Create a new object reference
+        return { ...updatedCart };
     });
 
     // Update total price (making sure it doesn't go negative)
-    setTotPrice(prev => Math.max(prev - price, 0)); // Prevent negative prices
-}, 50);
+    setTotPrice(prev => Math.max(prev - price, 0));
+
+    // Perform async API call
+    if (token) {
+        try {
+            await axios.post(URL + "/api/cart/remove", { id, collectionName }, { headers: { token } });
+        } catch (error) {
+            console.error("Failed to remove item from cart:", error);
+        }
+    }
+}, 450);
+
 
 
 const loadCartData = async (token) => {
     const response = await axios.get(URL + "/api/cart/get", {
         headers: { token }
     });
-    setCartItems(response.data.cartData);
-    console.log(cartItems)
+    
+    if(response.data.cartData){
+        setCartItems(response.data.cartData);
+    }
+
+    
+    
 };  
-console.log(loadCartData())
+
 
 useEffect(()=>{
     async function loadData() {
-        await getTobacco();
-        await getShisha();
-        await getParts();
+        
         if (localStorage.getItem("token")){
             setToken(localStorage.getItem("token"))
             await loadCartData(localStorage.getItem("token"))
         }
     }
     loadData()
-  })
+    
+  },[])
 
 
+  
 
-
-    useEffect(()=>{
-        console.log(cartItems)
-        
-    },[cartItems])
+   
 
 
     const findOne=async(collectionName,id)=>{
