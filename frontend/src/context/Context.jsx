@@ -119,9 +119,13 @@ const removeFromCart = debounce(async (id, collectionName, price) => {
 
             if (updatedCart[collectionName + "_" + id] <= 0) {
                 delete updatedCart[collectionName + "_" + id];
+                setTimeout(() => {
+                    window.location.reload()
+                }, 250);
+                
             }
         }
-
+        
         return { ...updatedCart };
     });
 

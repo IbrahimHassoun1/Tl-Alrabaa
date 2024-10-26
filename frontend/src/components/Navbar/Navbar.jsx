@@ -99,8 +99,9 @@ const {setShowPopup}=useContext(MyContext)
                         <ul className={`h-16 w-36 bg-tertiary -bottom-20 right-0 bg-teriary absolute ${userOptionsIsVisible?"block":"hidden"}`}>
                             <li className='text-primary cursor-pointer'>Profile</li>
                             <li className='text-red-700 cursor-pointer' onClick={()=>{
-                                        setLoggedIn(false)
-                                        localStorage.removeItem("token")
+                                        setLoggedIn(false);
+                                        localStorage.removeItem("token");
+                                        window.location.reload()
                                     }}>Log Out</li>
                         </ul>
                     </li>:

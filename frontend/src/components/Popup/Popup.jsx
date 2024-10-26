@@ -49,10 +49,12 @@ const Popup = () => {
                 setShowPopup(false);
                 setLoggedIn(true);
                 setErrorMessage(""); // Clear error on success
+                window.location.reload()
             } else {
                 console.log("Response indicates failure:", response.data.message);
                 setErrorMessage(response.data.message);
             }
+
         } catch (error) {
             console.error("Error occurred:", error);
             const errorMessage = error.response?.data?.message || "An unexpected error occurred.";
@@ -149,7 +151,7 @@ const Popup = () => {
                                         </form>
                                     )}
                                     {currentStep === 3 && (
-                                        <form onSubmit={submit} className='gap-3 flex flex-col'>
+                                        <form onSubmit={()=>{submit}} className='gap-3 flex flex-col'>
                                             <h1 className='text-tertiary font-bold text-3xl'>Credentials</h1>
                                             <input onChange={handleChange} type="email" placeholder='Email' className='p-2 rounded-xl' name="email" value={data.email || ""} required />
                                             <input onChange={handleChange} type="password" placeholder='Password' className='p-2 rounded-xl' name='password' value={data.password || ""} required />

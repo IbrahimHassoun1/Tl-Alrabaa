@@ -21,7 +21,7 @@ const CartItem = ({id,name,image,price,quantity,collectionName}) => {
         </div>
         <div className="quantity  w-1/4 border-r border-gray-200 flex">
             <h1 className='m-auto flex justify-between items-start w-full'>
-                <div className='bg-primary h-5 w-5 text-tertiary rounded-full m-auto font-extrabold text-xs cursor-pointer' onClick={()=>{removeFromCart(id,collectionName,price)}}>-</div>
+                <div className='bg-primary h-5 w-5 text-tertiary rounded-full m-auto font-extrabold text-xs cursor-pointer' onClick={()=>{removeFromCart(id,collectionName,price);}}>-</div>
                 
                 {quantity}
                 
