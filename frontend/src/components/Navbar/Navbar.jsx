@@ -9,7 +9,7 @@ import { MyContext } from '../../context/Context'
 const Navbar = () => {
     const [isActive,setIsActive]=useState("")
     const [burgerOpen,setBurgerOpen]=useState(false)
-
+    const [userOptionsIsVisible,setUserOptionsIsVisible]=useState(false)
     const scrollToSection = (sectionId) => {
         const section = document.getElementById(sectionId);
         const offset = 80;  // Optional: adjust this value to match your navbar height
@@ -19,7 +19,8 @@ const Navbar = () => {
       };
    
 
-const {loggedIn}=useContext(MyContext)
+const {loggedIn,setLoggedIn,setToken}=useContext(MyContext)
+localStorage.getItem("token")?()=>{setToken(localStorage.getItem("token"));setLoggedIn(true)}:setLoggedIn(false)
 const {setShowPopup}=useContext(MyContext)
   return (
     <div className='bg-primary Navbar sticky top-0 w-full  h-20 font-primary font-medium text-2xl flex ' >
@@ -91,9 +92,18 @@ const {setShowPopup}=useContext(MyContext)
 
             <div className='right-nav hidden sm:flex items-center '>
                 <ul className='flex items-center gap-3'>
-                    <Link to="/cart" className={`${isActive==="cart"?"active":""} cursor-pointer`} onClick={()=>setIsActive("cart")}>cart</Link>
+                    <Link to="/cart" className={`${isActive==="cart"?"active":""} cursor-pointer`} onClick={()=>setIsActive("cart")}>Cart</Link>
                     {loggedIn?
-                    <li><div className='ppContaier h-8 w-8 bg-tertiary rounded-2xl'>s</div></li>:
+                    <li className='relative'>
+                        <div className='ppContaier h-8 w-8 bg-tertiary rounded-2xl cursor-pointer' onClick={()=>setUserOptionsIsVisible(!userOptionsIsVisible)}></div>
+                        <ul className={`h-16 w-36 bg-tertiary -bottom-20 right-0 bg-teriary absolute ${userOptionsIsVisible?"block":"hidden"}`}>
+                            <li className='text-primary cursor-pointer'>Profile</li>
+                            <li className='text-red-700 cursor-pointer' onClick={()=>{
+                                        setLoggedIn(false)
+                                        localStorage.removeItem("token")
+                                    }}>Log Out</li>
+                        </ul>
+                    </li>:
                     <li className='cursor-pointer bg-secondary rounded-xl p-1' onClick={()=>{setShowPopup(true);console.log(loggedIn)}}>Log in</li>}
                     
                 </ul>
@@ -159,9 +169,22 @@ const {setShowPopup}=useContext(MyContext)
                                                                                                         
                                                                                                         }}>Contact</Link>
                     
-                    <Link to="/cart" className={`${isActive==="cart"?"active":""} cursor-pointer`} onClick={()=>setIsActive("cart")}>cart</Link>
+                    <Link to="/cart" className={`${isActive==="cart"?"active":""} cursor-pointer`} onClick={()=>setIsActive("cart")}>Cart</Link>
                             {loggedIn?
-                            <li><div className='ppContaier h-8 w-8 bg-tertiary rounded-2xl'>s</div></li>:
+                            <li>
+                                <div className='ppContaier h-8 w-8 bg-tertiary rounded-2xl relative'>s</div>
+                                <ul className='options absolute top-10 h-screen w-screen bg-tertiary cursor-pointer'>
+                                    <li className='text-primary'>
+                                        Profile
+                                    </li>
+                                    <li className='text-primary' onClick={()=>{
+                                        setLoggedIn(false)
+                                        localStorage.removeItem()
+                                    }}>
+                                        logout
+                                    </li>
+                                </ul>
+                            </li>:
                             <li className='cursor-pointer  rounded-xl p-1' onClick={()=>{setShowPopup(true);console.log(loggedIn)}}>Log in</li>}
                         </ul>
                     </div>
