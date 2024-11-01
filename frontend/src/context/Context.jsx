@@ -30,6 +30,7 @@ const MyProvider = ({ children }) => {
     const [data,setdata]=useState({})
     const [imageFile,setImageFile]=useState(null)
     const [productIsChosen,setProductIsChosen]=useState(false)
+    const [orders,setOrders]=useState({})
     const URL="https://tl-alrabaa-production.up.railway.app"
 
     const [totPrice,setTotPrice]=useState(0)
@@ -81,6 +82,21 @@ const MyProvider = ({ children }) => {
         getParts();
     }, []);
 
+    const getOrders=async()=>{
+        try {
+            const response = await axios.get(URL+"/api/order/list");
+            console.log("orders response:",response)
+            setOrders(response.data.data); 
+        } catch (error) {
+            console.log("Error fetching parts:", error.message);
+        }
+
+    }
+
+
+    useEffect(()=>{
+        getOrders()
+    },[])
 
     const debounce = (func, delay) => {
     let timeout;
@@ -105,7 +121,7 @@ const addToCart = debounce(async (id, collectionName, price) => {
     if(token){
         await axios.post(URL+"/api/cart/add",{id,collectionName},{headers:{token}})
     }
-}, 450); 
+}, 390); 
 
 
 
@@ -119,12 +135,15 @@ const removeFromCart = debounce(async (id, collectionName, price) => {
 
             if (updatedCart[collectionName + "_" + id] <= 0) {
                 delete updatedCart[collectionName + "_" + id];
+            if(window.location.pathname==="/cart"){
                 setTimeout(() => {
                     window.location.reload()
                 }, 250);
                 
             }
         }
+            }
+                
         
         return { ...updatedCart };
     });
@@ -285,6 +304,46 @@ useEffect(()=>{
             }
         };
         
+        function optimizeImage(file, maxWidth, maxHeight, quality = 0.7) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.src = URL.createObjectURL(file);
+        
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Set canvas dimensions to keep aspect ratio
+                    let width = img.width;
+                    let height = img.height;
+        
+                    if (width > maxWidth || height > maxHeight) {
+                        if (width > height) {
+                            height *= maxWidth / width;
+                            width = maxWidth;
+                        } else {
+                            width *= maxHeight / height;
+                            height = maxHeight;
+                        }
+                    }
+        
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+        
+                    canvas.toBlob(
+                        (blob) => {
+                            resolve(blob);
+                            URL.revokeObjectURL(img.src);
+                        },
+                        'image/jpeg',
+                        quality
+                    );
+                };
+        
+                img.onerror = reject;
+            });
+        }
         
 
 
@@ -313,7 +372,9 @@ useEffect(()=>{
         findOneAndUpdate,
         productIsChosen,setProductIsChosen,
         initiateEdit,
-        deleteItem
+        deleteItem,
+        optimizeImage,
+        orders,setOrders
     };
 
     return (
