@@ -31,7 +31,7 @@ const MyProvider = ({ children }) => {
     const [imageFile,setImageFile]=useState(null)
     const [productIsChosen,setProductIsChosen]=useState(false)
     const [orders,setOrders]=useState({})
-    const URL="https://tl-alrabaa.vercel.app"
+    const URL="https://tl-alrabaa-production.up.railway.app"
 
     const [totPrice,setTotPrice]=useState(0)
 
