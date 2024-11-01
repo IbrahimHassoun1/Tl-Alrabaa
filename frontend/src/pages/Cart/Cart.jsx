@@ -4,12 +4,13 @@ import CartItem from '../../components/cartItem/CartItem';
 import { MyContext } from '../../context/Context';
 import Popup from '../../components/Popup/Popup';
 
+
 const Cart = () => {
-  const { cartItems, tobaccoList, shishaList, partsList, totPrice, showPopup, setTotPrice } = useContext(MyContext);
+  const { cartItems, tobaccoList, shishaList, partsList, totPrice, showPopup, setTotPrice ,placeOrder,userId} = useContext(MyContext);
   const [tobaccoCartItems, setTobaccoCartItems] = useState([]);
   const [shishaCartItems, setShishaCartItems] = useState([]);
   const [partsCartItems, setPartsCartItems] = useState([]);
-
+  
   useEffect(() => {
     const arrayOfAllItems = Object.entries(cartItems);
     const arrangedItems = arrayOfAllItems.map(item => ({
@@ -55,6 +56,13 @@ const Cart = () => {
     setTotPrice(totalPrice);
   }, [tobaccoList, shishaList, partsList, tobaccoCartItems, shishaCartItems, partsCartItems, setTotPrice]);
 
+  
+useEffect(()=>{
+console.log("this is cartItems:",cartItems)
+
+},[cartItems])
+
+
   return (
     <div>
       {showPopup ? <Popup /> : ""}
@@ -79,7 +87,7 @@ const Cart = () => {
                 <h1 className='font-bold text-2xl'>Total:</h1>
                 <h1 className='text-secondary font-bold text-2xl sm:mx-auto'>{Math.round(totPrice ? totPrice * 1.1 + 2000 : 0)}</h1>
               </div>
-              <button className='h-10 w-full m-auto bg-secondary text-tertiary rounded-lg hover:opacity-95 active:opacity-85'>
+              <button className='h-10 w-full m-auto bg-secondary text-tertiary rounded-lg hover:opacity-95 active:opacity-85' onClick={()=>{placeOrder(userId,cartItems)}}>
                 Confirm Order
               </button>
             </div>

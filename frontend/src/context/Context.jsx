@@ -12,7 +12,7 @@ const MyProvider = ({ children }) => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const [hasAccount, setHasAccount] = useState(false);
-    
+    const [userId,setUserId]=useState('')
     const [tobaccoList, setTobaccoList] = useState([]); 
     const [shishaList, setShishaList] = useState([]); 
     const [partsList, setPartsList] = useState([]);
@@ -31,7 +31,7 @@ const MyProvider = ({ children }) => {
     const [imageFile,setImageFile]=useState(null)
     const [productIsChosen,setProductIsChosen]=useState(false)
     const [orders,setOrders]=useState({})
-    const URL="https://tl-alrabaa-production.up.railway.app"
+    const URL="https://tl-alrabaa.vercel.app"
 
     const [totPrice,setTotPrice]=useState(0)
 
@@ -97,6 +97,29 @@ const MyProvider = ({ children }) => {
     useEffect(()=>{
         getOrders()
     },[])
+
+
+    useEffect(() => {
+        const fetchUserId = async () => {
+            try {
+                const response = await axios.get(URL+"/api/user/userId", {
+                    headers: {
+                        token: token 
+                    }
+                });
+                console.log("userId response:", response.data.userId);
+                setUserId(response.data.userId.id); 
+                
+            } catch (error) {
+                console.log("Error fetching userId:", error.message);
+            }
+        };
+        
+        if (token) { // Only call if token exists
+            fetchUserId();
+        }
+    }, [token]); // Runs only when `token` changes
+    
 
     const debounce = (func, delay) => {
     let timeout;
@@ -345,7 +368,15 @@ useEffect(()=>{
             });
         }
         
-
+        const placeOrder=async(userId,cartData)=>{
+            try{
+                const response=await axios.post(URL+"/api/order/add",{userId,cartData})
+                console.log(response.data.data)
+                toast.success("Order placed succesfully")
+            }catch(err){
+                console.log(err)
+            }
+        }
 
     const value = {
         loggedIn,
@@ -374,7 +405,9 @@ useEffect(()=>{
         initiateEdit,
         deleteItem,
         optimizeImage,
-        orders,setOrders
+        orders,setOrders,
+        placeOrder,
+        userId,setUserId
     };
 
     return (

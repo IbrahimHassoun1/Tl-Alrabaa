@@ -25,7 +25,16 @@ export const logIn = async (req, res) => {
         res.status(500).json({ success: false, message: "Error during login" });
     }
 };
-
+export const getUserId=async(req,res)=>{
+    const {token}=req.headers;
+    try{
+        const userId=jwt.verify(token,process.env.JWT_SECRET)
+        res.json({success:true,userId})
+    }catch(err){
+        console.log(err)
+        res.json({success:false,message:"couldn't find id"})
+    }
+}
 // Token Creation
 const createToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET);
