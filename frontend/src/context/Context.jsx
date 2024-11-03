@@ -31,7 +31,7 @@ const MyProvider = ({ children }) => {
     const [token,setToken]=useState("")
     const [renderer,setRenderer]=useState(true)
 
-    const URL="https://tl-alrabaa.vercel.app"
+    const URL="https://tl-alrabaa-production.up.railway.app"
 
     useEffect(()=>{
         if (localStorage.token){
@@ -426,7 +426,7 @@ useEffect(()=>{
                 console.log(err)
             }
         }
-        const dummy='hello'//delete it again
+        
     const value = {
         loggedIn,
         setLoggedIn,
