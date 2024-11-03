@@ -31,7 +31,7 @@ const MyProvider = ({ children }) => {
     const [token,setToken]=useState("")
     const [renderer,setRenderer]=useState(true)
 
-    const URL="http://localhost:5000"
+    const URL="tl-alrabaa-production.up.railway.app"
 
     useEffect(()=>{
         if (localStorage.token){
