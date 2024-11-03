@@ -31,7 +31,7 @@ const MyProvider = ({ children }) => {
     const [token,setToken]=useState("")
     const [renderer,setRenderer]=useState(true)
 
-    const URL="tl-alrabaa-production.up.railway.app"
+    const URL="https://tl-alrabaa.vercel.app"
 
     useEffect(()=>{
         if (localStorage.token){
