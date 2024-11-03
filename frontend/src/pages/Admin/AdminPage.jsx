@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import ManageStock from '../../components/ManageStock/ManageStock';
 import { MyContext } from '../../context/Context';
+import Order from '../../components/order/Order';
+import SlideHorizontalSection from '../../components/SlideHorizontalSection/SlideHorizontalSection';
 React
 
 const AdminPage = () => {
-    const {setImagePreview,setdata,setProductIsChosen,orders,setOrders}=useContext(MyContext)
+    const {setImagePreview,setdata,setProductIsChosen}=useContext(MyContext)
     const [dropDownOrders, setDropDownOrders] = useState(false); // Changed to boolean
     const [dropDownStock, setDropDownStock] = useState(false); // Changed to boolean
     const [selectedStockOperation,setSelectedStockOperation]=useState("")
@@ -18,7 +20,7 @@ const AdminPage = () => {
     <div className='min-h-screen bg-tertiary flex'>
         <div className='containers mx-auto flex flex-wrap w-full text-start'>
 
-            <div className="left panel h-full w-full sm:w-1/5  sm:border-r-2 border-primary flex flex-col  ">
+            <SlideHorizontalSection direction='left' className="left panel h-full w-full sm:w-1/5  sm:border-r-2 border-primary flex flex-col  ">
                    
                     <div className='ml-4'>
                     <span className='cursor-pointer' onClick={() => {setDropDownStock(!dropDownStock);setDropDownOrders(false);setSelectedGeneralOperation("stock");setImagePreview(null)}}>
@@ -45,14 +47,14 @@ const AdminPage = () => {
                         className={`ml-5 w-3/5 border-l border-l-gray-100 transition-max-height duration-300 ease-in-out overflow-hidden ${dropDownOrders ? 'max-h-40' : 'max-h-0'}`}
                     >
                         
-                        <li className={`pl-2 cursor-pointer relative ${selectedOrder==="pending"?"text-secondary":""}`} onClick={()=>{setSelectedOrder("pending")}}>Pending  <span className='h-4 w-4 top-1/4 right-9 bg-yellow-400 text-yellow-400 rounded-lg absolute'></span></li>
-                        <li className={`pl-2 cursor-pointer relative ${selectedOrder==="completed"?"text-secondary":""}`} onClick={()=>{setSelectedOrder("completed")}}>Completed <span className='h-4 w-4 top-1/4 right-3 bg-green-500 text-yellow-400 rounded-lg absolute'></span></li>
-                        <li className={`pl-2 cursor-pointer relative ${selectedOrder==="cancelled"?"text-secondary":""}`} onClick={()=>{setSelectedOrder("cancelled")}}>Cancelled <span className='h-4 w-4 top-1/4 right-7 bg-red-600 text-yellow-400 rounded-lg absolute'></span></li>
+                        <li className={`pl-2 cursor-pointer relative ${selectedOrder==="pending"?"text-secondary":""}`} onClick={()=>{setSelectedOrder("pending")}}>Pending  </li>
+                        <li className={`pl-2 cursor-pointer relative ${selectedOrder==="completed"?"text-secondary":""}`} onClick={()=>{setSelectedOrder("completed")}}>Completed </li>
+                        <li className={`pl-2 cursor-pointer relative ${selectedOrder==="cancelled"?"text-secondary":""}`} onClick={()=>{setSelectedOrder("cancelled")}}>Cancelled </li>
                         
                     </ul>
                     </div>
                    
-            </div>
+            </SlideHorizontalSection>
 
 
 
@@ -66,6 +68,7 @@ const AdminPage = () => {
 
             <div className="right w-full sm:w-4/5 ">
                 {selectedGeneralOperation==="stock"?<ManageStock selectedStockOperation={selectedStockOperation}/>:""}
+                {selectedGeneralOperation==="orders"?<Order selectedOrder={selectedOrder}/>:""}
             </div>
 
         </div>

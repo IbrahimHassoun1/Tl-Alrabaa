@@ -89,3 +89,32 @@ export const signUp = async (req, res) => {
         res.status(500).json({ success: false, message: "Error during signup" });
     }
 };
+
+export const getInfo = async (req, res) => {
+    try {
+        const { userId } = req.body;
+        if (!userId) {
+            console.log("userId not inserted");
+            return res.json({ success: false, message: "userId not inserted" });
+        }
+        
+        const newUser = await userModel.findById(userId);
+        if (!newUser) {
+            console.log("No user with this Id");
+            return res.json({ success: false, message: "No user with this Id" });
+        }
+        
+        const data = {
+            name:`${newUser.firstName} ${newUser.lastName}`,
+            email:newUser.email,
+            phone:newUser.phone
+
+        }
+        
+        return res.json({ success: true, data });
+    } catch (err) {
+        console.log(err);
+        res.json({ success: false, message: err.message });
+    }
+};
+

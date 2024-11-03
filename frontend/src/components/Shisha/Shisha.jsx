@@ -5,7 +5,7 @@ import ItemCard from '../itemCard/ItemCard';
 
 import { MyContext } from '../../context/Context';
 import FadeInSection from '../FadeInSection/FadeInSection';
-
+import SlideHorizontalSection from '../SlideHorizontalSection/SlideHorizontalSection';
 const Shisha = () => {
 
   const [dropDownSize, setDropDownSize] = useState(true); // Changed to boolean
@@ -54,7 +54,7 @@ const Shisha = () => {
           </div>
 
 
-          <div className="queries mt-3 flex flex-col mx-auto mb-auto w-fit md:w-1/6 h-fit bg-primary text-tertiary  text-start">
+          <SlideHorizontalSection direction='right' className="queries mt-3 flex flex-col mx-auto mb-auto w-fit md:w-1/6 h-fit bg-primary text-tertiary  text-start">
             <div className='ml-4 mt-4 cursor-pointer text-center text-4xl font-bold text-secondary'>Filter</div>
             {/* <input type="text" placeholder='Search' className='w-4/6 m-auto mt-2 mb-2 rounded-lg'/> */}
             <div className='ml-4'>
@@ -88,7 +88,7 @@ const Shisha = () => {
               </ul>
             </div>
             <button className='mb-3 bg-secondary text-tertiary hover:opacity-90 active:opacity-85 w-3/6 m-auto rounded-md font-medium' onClick={()=>{setSelectedColor("");setSelectedSize("")}}>Reset</button>
-          </div>
+          </SlideHorizontalSection>
         </div>
       </div>
     </div>

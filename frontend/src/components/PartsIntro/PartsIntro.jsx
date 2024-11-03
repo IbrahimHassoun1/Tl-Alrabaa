@@ -3,7 +3,8 @@ React
 import parts1 from '../../assets/parts1-head.webp'
 import parts2 from '../../assets/parts2-head.jpeg'
 import parts3 from '../../assets/parts3-head.jpg'
-import FadeInSection from '../FadeInSection/FadeInSection'
+
+import SlideHorizontalSection from '../SlideHorizontalSection/SlideHorizontalSection'
 
 const scrollToSection = (sectionId) => {
   const section = document.getElementById(sectionId);
@@ -24,23 +25,23 @@ const PartsIntro = () => {
   }, []); // Empty dependency array to run the effect once
   return (
     <div className='PartsIntro bg-primary min-h-96 h-fit flex'>
-        <FadeInSection className="PartsIntro-content w-full containers m-auto flex flex-wrap"> 
+        <div className="PartsIntro-content w-full containers m-auto flex flex-wrap"> 
 
-            <div className="left w-full sm:w-3/6 min-h-80 rounded-xl flex flex-col">
+            <SlideHorizontalSection direction='left' className="left w-full sm:w-3/6 min-h-80 rounded-xl flex flex-col">
             <img src={index===1?parts1:index===2?parts2:parts3}  loading='lazy' alt="" className='h-72 w-fit object-cover rounded-xl mx-auto'/>
                 <ul className='m-auto flex'>
                   <li className={`${index===1?"bg-tertiary":"bg-transparent"} h-2 w-2 rounded-full mr-1 border cursor-pointer`} onClick={()=>setIndex(1)}></li>
                   <li className={`${index===2?"bg-tertiary":"bg-transparent"} h-2 w-2 rounded-full mr-1 border cursor-pointer`} onClick={()=>setIndex(2)}></li>
                   <li className={`${index===3?"bg-tertiary":"bg-transparent"} h-2 w-2 rounded-full border cursor-pointer`} onClick={()=>setIndex(3)}></li>
                 </ul>
-            </div>
+            </SlideHorizontalSection>
 
-            <div className="right w-full sm:w-3/6  min-h-80 rounded-xl flex flex-col">
+            <SlideHorizontalSection direction='right' className="right w-full sm:w-3/6  min-h-80 rounded-xl flex flex-col">
                 <h1 className='text-tertiary font-extrabold text-5xl text-center pl-7 pt-7'>Are you Looking <br /> For Parts?</h1>
                 <p className='text-tertiary text-center font-thin  capitalize m-auto'>Bowl,Stem,Base and much more... <br />Whatever you&apos;re looking for,we&apos;ve Got You. </p>
                 <button className='bg-secondary text-tertiary w-2/6 rounded-lg h-10  hover:opacity-90 active:opacity-85 m-auto' onClick={()=>scrollToSection("parts")}>Explore Parts</button>
-            </div>
-        </FadeInSection>
+            </SlideHorizontalSection>
+        </div>
     </div>
   )
 }

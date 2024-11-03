@@ -4,6 +4,7 @@ import ItemCard from '../itemCard/ItemCard';
 
 import { MyContext } from '../../context/Context';
 import FadeInSection from '../FadeInSection/FadeInSection';
+import SlideHorizontalSection from '../SlideHorizontalSection/SlideHorizontalSection';
 
 const Parts = () => {
 
@@ -25,7 +26,7 @@ const Parts = () => {
         <hr className='bg-secondary h-1 w-4/6 mt-3 mx-auto mb-4' />
 
         <div className="main-table w-full flex flex-wrap">
-          <div className="queries mt-3 pb-14 flex flex-col mx-auto w-fit md:w-1/6  h-fit bg-primary text-tertiary  text-start">
+          <SlideHorizontalSection direction='left' className="queries mt-3 pb-14 flex flex-col mx-auto w-fit md:w-1/6  h-fit bg-primary text-tertiary  text-start">
             <div className='ml-4 mt-4 cursor-pointer text-center text-4xl font-bold text-secondary'>Filter</div>
             {/* <input type="text" placeholder='Search' className='w-4/6 m-auto mt-2 mb-2 rounded-lg'/> */}
             <div className='ml-4'>
@@ -51,7 +52,7 @@ const Parts = () => {
 
             <button className='bg-secondary text-tertiary hover:opacity-90 active:opacity-85 w-3/6 m-auto mt-7 rounded-md font-medium' onClick={()=>{setSelectedType("")}}>Reset</button>
             
-          </div>
+          </SlideHorizontalSection>
 
           <div className=" list m-auto w-full md:w-5/6   flex flex-wrap">
           

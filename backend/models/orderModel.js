@@ -13,6 +13,14 @@ const orderSchema=mongoose.Schema({
         type:String,
         required:true,
         enum: ["pending", "completed", "canceled"] 
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+      },
+    total:{
+        type:Number,
+        required:true
     }
 
 },{minimize:false})

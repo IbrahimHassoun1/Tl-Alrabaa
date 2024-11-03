@@ -1,0 +1,26 @@
+/* Base styles */
+.slide-horizontal-section {
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  
+  /* Slide from the right */
+  .slide-horizontal-section.right {
+    transform: translateX(140px); /* Start position to the right */
+  }
+  
+  .slide-horizontal-section.right.visible {
+    opacity: 1;
+    transform: translateX(0); /* Slide into view */
+  }
+  
+  /* Slide from the left */
+  .slide-horizontal-section.left {
+    transform: translateX(-140px); /* Start position to the left */
+  }
+  
+  .slide-horizontal-section.left.visible {
+    opacity: 1;
+    transform: translateX(0); /* Slide into view */
+  }
+  

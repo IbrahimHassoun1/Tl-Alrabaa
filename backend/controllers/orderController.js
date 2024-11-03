@@ -16,7 +16,7 @@ export const listOrder = async (req, res) => {
 
 export const addOrder = async (req, res) => {
     try {
-        const { userId, cartData } = req.body;
+        const { userId, cartData,total } = req.body;
 
         // Check for missing userId
         if (!userId) {
@@ -29,12 +29,17 @@ export const addOrder = async (req, res) => {
             console.log("No cartData found");
             return res.status(400).json({ success: false, message: "No cartData found" });
         }
-
+        if(!total){
+            console.log("No total price found");
+            return res.status(400).json({ success: false, message: "No total price found" });
+        }
         // Create a new order
         const newOrder = new orderModel({
             userId: userId,
             cartData: cartData,
-            currentStatus: "pending"
+            currentStatus: "pending",
+            total:total
+            
         });
 
         // Save the new order to the database

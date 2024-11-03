@@ -1,0 +1,11 @@
+.slide-down-section {
+    opacity: 0;
+    transform: translateY(-20px); /* Start position above */
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  
+  .slide-down-section.visible {
+    opacity: 1;
+    transform: translateY(0); /* Slide down into view */
+  }
+  

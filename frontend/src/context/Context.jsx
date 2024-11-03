@@ -16,8 +16,23 @@ const MyProvider = ({ children }) => {
     const [tobaccoList, setTobaccoList] = useState([]); 
     const [shishaList, setShishaList] = useState([]); 
     const [partsList, setPartsList] = useState([]);
-    
+
+    const [cartItems, setCartItems] = useState({});
+    const [tobaccoCartItems, setTobaccoCartItems] = useState([]);
+    const [shishaCartItems, setShishaCartItems] = useState([]);
+    const [partsCartItems, setPartsCartItems] = useState([]);
+  
+    const [imagePreview, setImagePreview] = useState(null);
+    const [data,setdata]=useState({})
+    const [imageFile,setImageFile]=useState(null)
+    const [productIsChosen,setProductIsChosen]=useState(false)
+    const [orders,setOrders]=useState({})
+    const [totPrice,setTotPrice]=useState(0)
     const [token,setToken]=useState("")
+    const [renderer,setRenderer]=useState(true)
+
+    const URL="http://localhost:5000"
+
     useEffect(()=>{
         if (localStorage.token){
             setToken(localStorage.token)
@@ -25,15 +40,35 @@ const MyProvider = ({ children }) => {
         setLoggedIn(true)
     },[])
 
-    const [cartItems, setCartItems] = useState({});
-    const [imagePreview, setImagePreview] = useState(null);
-    const [data,setdata]=useState({})
-    const [imageFile,setImageFile]=useState(null)
-    const [productIsChosen,setProductIsChosen]=useState(false)
-    const [orders,setOrders]=useState({})
-    const URL="https://tl-alrabaa-production.up.railway.app"
+    useEffect(() => {
+        console.log("CartItems:",cartItems)
+        const arrayOfAllItems = Object.entries(cartItems);
+        console.log("arraOfAllItems",arrayOfAllItems)
 
-    const [totPrice,setTotPrice]=useState(0)
+        const arrangedItems = arrayOfAllItems.map(item => ({
+          id: item[0].split('_')[1],
+          collectionName: item[0].split('_')[0],
+          quantity: item[1]
+        }));
+        
+        console.log("arrangedItems",arrangedItems)
+
+        arrangedItems.forEach(item => {
+          if (item.collectionName === "tobacco") {
+            setTobaccoCartItems(prev => ({ ...prev, [item.id]: item.quantity }));
+          }
+          if (item.collectionName === "shisha") {
+            setShishaCartItems(prev => ({ ...prev, [item.id]: item.quantity }));
+          }
+          if (item.collectionName === "parts") {
+            setPartsCartItems(prev => ({ ...prev, [item.id]: item.quantity }));
+          }
+        });
+      }, [cartItems]);
+
+    useEffect(()=>{
+        console.log(orders)
+    },[orders])
 
     const getTobacco = async () => {
         try {
@@ -85,7 +120,7 @@ const MyProvider = ({ children }) => {
     const getOrders=async()=>{
         try {
             const response = await axios.get(URL+"/api/order/list");
-            console.log("orders response:",response)
+            
             setOrders(response.data.data); 
         } catch (error) {
             console.log("Error fetching parts:", error.message);
@@ -107,7 +142,7 @@ const MyProvider = ({ children }) => {
                         token: token 
                     }
                 });
-                console.log("userId response:", response.data.userId);
+                
                 setUserId(response.data.userId.id); 
                 
             } catch (error) {
@@ -249,7 +284,7 @@ useEffect(()=>{
     }
 
     const addToStock = async (collectionName, data) => {
-        console.log(data)
+        
         try {
             const formData = new FormData();
             formData.append("image", imageFile); // Ensure imagePreview is defined and holds the file
@@ -303,7 +338,7 @@ useEffect(()=>{
             setProductIsChosen(true)
             const response=await axios.get(URL+"/api/"+collectionName+"/"+id)
             setdata(response.data.data)
-            console.log(data)
+            
         }catch(err){
             console.log(err)
         }}
@@ -368,10 +403,24 @@ useEffect(()=>{
             });
         }
         
-        const placeOrder=async(userId,cartData)=>{
+        const restoreCart=async(userId)=>{
             try{
-                const response=await axios.post(URL+"/api/order/add",{userId,cartData})
-                console.log(response.data.data)
+                axios.post(URL+"/api/cart/restore",userId,{headers:{token:token}})
+                
+            }catch(err){
+                console.log("This is a restoreData error: ",err)
+            }
+        }
+        
+        const placeOrder=async(userId,cartData,total)=>{
+            try{
+                await axios.post(URL+"/api/order/add",{userId:userId,cartData:cartData,total:total})
+                
+                setCartItems({})
+                setTobaccoCartItems({})
+                setShishaCartItems({})
+                setPartsCartItems({})
+                await restoreCart(userId)
                 toast.success("Order placed succesfully")
             }catch(err){
                 console.log(err)
@@ -407,7 +456,12 @@ useEffect(()=>{
         optimizeImage,
         orders,setOrders,
         placeOrder,
-        userId,setUserId
+        userId,setUserId,
+        tobaccoCartItems,setTobaccoCartItems,
+        shishaCartItems,setShishaCartItems,
+        partsCartItems,setPartsCartItems,
+        renderer,setRenderer,
+        getOrders
     };
 
     return (
