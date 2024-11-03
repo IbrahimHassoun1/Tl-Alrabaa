@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import ManageStock from '../../components/ManageStock/ManageStock';
 import { MyContext } from '../../context/Context';
-import Order from '../../components/order/Order';
+import Order from '../../components/Order/Order';
 import SlideHorizontalSection from '../../components/SlideHorizontalSection/SlideHorizontalSection';
 React
 
