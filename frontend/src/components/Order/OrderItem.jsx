@@ -67,11 +67,10 @@ const OrderItem = ({orderId,userId,selectedOrder,total}) => {
       return;
     }
   
-    console.log("MYORDER:", MYORDER);
-    console.log("MYORDER.cartData:", MYORDER.cartData);
+   
   
     const arrayOfAllItems = Object.entries(MYORDER.cartData);
-    console.log("arrayOfAllItems", arrayOfAllItems);
+   
   
     const arrangedItems = arrayOfAllItems.map(item => ({
       id: item[0].split('_')[1],
@@ -79,7 +78,7 @@ const OrderItem = ({orderId,userId,selectedOrder,total}) => {
       quantity: item[1],
     }));
   
-    console.log("arrangedItems", arrangedItems);
+   
   
     arrangedItems.forEach(item => {
       if (item.collectionName === "tobacco") {

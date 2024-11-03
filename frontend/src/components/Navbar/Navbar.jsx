@@ -105,7 +105,7 @@ const {setShowPopup}=useContext(MyContext)
                                     }}>Log Out</li>
                         </ul>
                     </li>:
-                    <li className='cursor-pointer bg-secondary rounded-xl p-1' onClick={()=>{setShowPopup(true);console.log(loggedIn)}}>Log in</li>}
+                    <li className='cursor-pointer bg-secondary rounded-xl p-1' onClick={()=>{setShowPopup(true);}}>Log in</li>}
                     
                 </ul>
             </div>

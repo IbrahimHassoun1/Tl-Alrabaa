@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 React
 import PropTypes from 'prop-types'
 import { MyContext } from '../../context/Context'
@@ -27,9 +27,7 @@ const ManageStock = ({selectedStockOperation}) => {
 
       
     
-   useEffect(()=>{
-    console.log(data)
-   },[data])
+   
     
 
 

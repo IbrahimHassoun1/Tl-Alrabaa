@@ -41,9 +41,9 @@ const MyProvider = ({ children }) => {
     },[])
 
     useEffect(() => {
-        console.log("CartItems:",cartItems)
+        
         const arrayOfAllItems = Object.entries(cartItems);
-        console.log("arraOfAllItems",arrayOfAllItems)
+        
 
         const arrangedItems = arrayOfAllItems.map(item => ({
           id: item[0].split('_')[1],
@@ -51,7 +51,7 @@ const MyProvider = ({ children }) => {
           quantity: item[1]
         }));
         
-        console.log("arrangedItems",arrangedItems)
+        
 
         arrangedItems.forEach(item => {
           if (item.collectionName === "tobacco") {
@@ -66,9 +66,7 @@ const MyProvider = ({ children }) => {
         });
       }, [cartItems]);
 
-    useEffect(()=>{
-        console.log(orders)
-    },[orders])
+   
 
     const getTobacco = async () => {
         try {

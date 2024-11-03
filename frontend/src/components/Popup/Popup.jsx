@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 React
 import { MyContext } from '../../context/Context';
 import axios from 'axios';
@@ -17,9 +17,7 @@ const Popup = () => {
         setData((prevData) => ({ ...prevData, [name]: value }));
     };
 
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
+  
 
     const nextStep = () => {
         if (currentStep < totalSteps) {
@@ -151,7 +149,7 @@ const Popup = () => {
                                         </form>
                                     )}
                                     {currentStep === 3 && (
-                                        <form onSubmit={()=>{submit}} className='gap-3 flex flex-col'>
+                                        <form onSubmit={(e)=>{submit(e)}} className='gap-3 flex flex-col'>
                                             <h1 className='text-tertiary font-bold text-3xl'>Credentials</h1>
                                             <input onChange={handleChange} type="email" placeholder='Email' className='p-2 rounded-xl' name="email" value={data.email || ""} required />
                                             <input onChange={handleChange} type="password" placeholder='Password' className='p-2 rounded-xl' name='password' value={data.password || ""} required />
