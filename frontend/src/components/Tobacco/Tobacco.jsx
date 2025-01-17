@@ -69,7 +69,7 @@ const Tobacco = () => {
             <button className='mb-3 bg-secondary text-tertiary hover:opacity-90 active:opacity-85 w-3/6 m-auto rounded-md font-medium' onClick={()=>{setSelectedFlavor("");setSelectedSize("")}}>Reset</button>
           </SlideHorizontalSection>
 
-          <div className=" list m-auto w-full md:w-5/6   flex flex-wrap">
+          <div className=" list m-auto w-full md:w-5/6 gap-y-1 gap-x-1  flex flex-wrap">
           
             {
             filteredTobaccos.length === 0 ? 

@@ -16,12 +16,12 @@ const AdminPage = () => {
 
     
 
-  return (
+return (
     <div className='min-h-screen bg-tertiary flex'>
         <div className='containers mx-auto flex flex-wrap w-full text-start'>
 
             <SlideHorizontalSection direction='left' className="left panel h-full w-full sm:w-1/5  sm:border-r-2 border-primary flex flex-col  ">
-                   
+                
                     <div className='ml-4'>
                     <span className='cursor-pointer' onClick={() => {setDropDownStock(!dropDownStock);setDropDownOrders(false);setSelectedGeneralOperation("stock");setImagePreview(null)}}>
                         Manage Stock
@@ -53,7 +53,7 @@ const AdminPage = () => {
                         
                     </ul>
                     </div>
-                   
+                
             </SlideHorizontalSection>
 
 

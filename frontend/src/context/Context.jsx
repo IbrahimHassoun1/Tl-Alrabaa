@@ -21,7 +21,7 @@ const MyProvider = ({ children }) => {
     const [tobaccoCartItems, setTobaccoCartItems] = useState([]);
     const [shishaCartItems, setShishaCartItems] = useState([]);
     const [partsCartItems, setPartsCartItems] = useState([]);
-  
+
     const [imagePreview, setImagePreview] = useState(null);
     const [data,setdata]=useState({})
     const [imageFile,setImageFile]=useState(null)

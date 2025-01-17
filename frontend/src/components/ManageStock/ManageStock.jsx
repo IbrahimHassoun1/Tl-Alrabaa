@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import { MyContext } from '../../context/Context'
 import ItemCard from '../itemCard/ItemCard'
 import FadeInSection from '../FadeInSection/FadeInSection'
+import imageCompression from 'browser-image-compression';
+
 
 const ManageStock = ({selectedStockOperation}) => {
 
@@ -13,26 +15,37 @@ const ManageStock = ({selectedStockOperation}) => {
 
     const handleCategoryChange = (event) => {
         setProductCategory(event.target.value); // Save the selected value in state
+    };
+
+    
+
+    const handleImageChange = async (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    try {
+      // Set up image compression options
+      const options = {
+        maxSizeMB: 1, // Maximum file size in MB
+        maxWidthOrHeight: 800, // Max width or height of the image
+        useWebWorker: true, // Use WebWorker for compression
       };
 
-    
+      // Compress the image
+      const compressedFile = await imageCompression(file, options);
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          setImagePreview(URL.createObjectURL(file));
-          setImageFile(file)
-        }
-      };
+      // Set the compressed image as preview
+      const compressedUrl = URL.createObjectURL(compressedFile);
+      setImagePreview(compressedUrl);
 
-      
-    
-   
-    
+      // Set the compressed file to be used for upload
+      setImageFile(compressedFile);
+    } catch (error) {
+      console.error('Error compressing image:', error);
+    }
+  }
+};
 
-
-
-  return (
+return (
     <div>
 
         {selectedStockOperation===""?<h1>Please Select an operation</h1>:""}
@@ -52,20 +65,20 @@ selectedStockOperation==="add"?
 <label htmlFor="image" className="border border-primary rounded-md p-2">
         Upload Product Image
         <input
-          type="file"
-          id="image"
-          accept="image/*"
-          className="ml-3"
-          onChange={handleImageChange}
-          required
+        type="file"
+        id="image"
+        accept="image/*"
+        className="ml-3"
+        onChange={handleImageChange}
+        required
         />
-      </label>
+    </label>
 
-      {imagePreview && (
+    {imagePreview && (
         <div className="mt-4">
-          <img src={imagePreview} alt="Selected" className="max-w-xs rounded-md"/>
+        <img src={imagePreview} alt="Selected" className="max-w-xs rounded-md"/>
         </div>
-      )}
+    )}
 
 <input className='border border-primary h-8 rounded-md pl-3' type="text" required   placeholder='Name' name='name' value={data.name||""} onChange={handleChange}/>
 <input className='border border-primary h-8 rounded-md pl-3' type="number" required placeholder='Price(in IQD)' name='price' value={data.price||""} onChange={handleChange}/>
@@ -154,7 +167,7 @@ selectedStockOperation==="edit"&&!productIsChosen?
     </div>:
 
     <div className='flex flex-wrap'>
-         {partsList.map((item)=>{
+        {partsList.map((item)=>{
             return <ItemCard key={item._id} collectionName={item.collectionName} id={item._id}name={item.name} description={item.description} image={item.image} price={item.price} rating={item.rating} flavor={item.flavor} action='edit'/>
         })}
     </div>
@@ -307,7 +320,7 @@ selectedStockOperation==="delete"?
         }
 
     </div>
-  )
+)
 }
 
 ManageStock.propTypes={
