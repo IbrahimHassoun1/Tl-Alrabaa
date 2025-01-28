@@ -17,7 +17,7 @@ const app = express();
 
 // CORS configuration
 app.use(cors({
-    origin: ["https://tl-alrabaa.vercel.app", "https://tl-alrabaa-frontend-5ef7f6dhk-ibrahim-hassouns-projects.vercel.app","http://localhost:5173"], // Include both domains if necessary
+    origin: ["https://tl-alrabaa.vercel.app", "https://tl-alrabaa-frontend-5ef7f6dhk-ibrahim-hassouns-projects.vercel.app","http://localhost:5173","https://tl-alrabaa-2.onrender.com"], // Include both domains if necessary
     methods: ["POST", "GET", "DELETE", "PATCH"],
     credentials: true
 }));
