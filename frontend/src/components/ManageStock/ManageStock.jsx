@@ -25,7 +25,7 @@ const ManageStock = ({selectedStockOperation}) => {
     try {
       // Set up image compression options
       const options = {
-        maxSizeMB: 1, // Maximum file size in MB
+        maxSizeMB: 0.1, // Maximum file size in MB
         maxWidthOrHeight: 800, // Max width or height of the image
         useWebWorker: true, // Use WebWorker for compression
       };
