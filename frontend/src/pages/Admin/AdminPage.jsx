@@ -18,7 +18,7 @@ const AdminPage = () => {
 
 return (
     <div className='min-h-screen bg-tertiary flex'>
-        <div className='containers mx-auto flex flex-wrap w-full text-start'>
+        <div className='containers pt-20 mx-auto flex flex-wrap w-full text-start'>
 
             <SlideHorizontalSection direction='left' className="left panel h-full w-full sm:w-1/5  sm:border-r-2 border-primary flex flex-col  ">
                 

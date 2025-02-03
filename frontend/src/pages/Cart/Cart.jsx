@@ -43,8 +43,8 @@ const Cart = () => {
   return (
     <div>
       {showPopup ? <Popup /> : ""}
-      <div className='cart min-h-screen bg-tertiary'>
-        <div className="content flex flex-wrap-reverse containers m-auto min-h-screen h-screen">
+      <div className='cart min-h-screen bg-tertiary '>
+        <div className="content pt-20 flex flex-wrap-reverse containers m-auto min-h-screen h-screen">
           
           <SlideHorizontalSection direction='left' className="left h-full w-full md:w-1/5 md:border-r-2 border-primary flex flex-col content-end">
             <FadeInSection className="content mt-4 mr-4 flex flex-col gap-5">

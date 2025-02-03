@@ -16,14 +16,14 @@ const Navbar = () => {
         const yPosition = section.getBoundingClientRect().top + window.pageYOffset - offset;
         
         window.scrollTo({ top: yPosition, behavior: 'smooth' });
-      };
-   
+    };
+
 
 const {loggedIn,setLoggedIn,setToken}=useContext(MyContext)
 localStorage.getItem("token")?()=>{setToken(localStorage.getItem("token"));setLoggedIn(true)}:setLoggedIn(false)
 const {setShowPopup}=useContext(MyContext)
-  return (
-    <div className='bg-primary Navbar sticky top-0 w-full z-10 h-20 font-primary font-medium text-2xl flex ' >
+return (
+    <div className='bg-primary Navbar fixed top-0 w-full z-10 h-20 font-primary font-medium text-2xl flex ' >
 
         <div className='m-auto flex containers justify-between w-full h-16 text-tertiary'>
             <Link to="/" className={`left-nav ${isActive==="home"?"active":""} mr-auto sm:mr-0  cursor-pointer`} onClick={()=>{setIsActive("home");scrollToSection("home");setShowPopup(false)}} >
