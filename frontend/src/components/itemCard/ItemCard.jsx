@@ -4,7 +4,7 @@ import { MyContext } from '../../context/Context';
 import FadeInSection from '../FadeInSection/FadeInSection';
 React
 const ItemCard = ({ id,name, description, image, price, rating ,collectionName,action}) => {
-  const {URL,addToCart,removeFromCart,cartItems,initiateEdit,deleteItem}=useContext(MyContext)
+  const {URL,addToCart,removeFromCart,cartItems,initiateEdit,deleteItem,demoMode}=useContext(MyContext)
   // Generate star rating based on rating prop
   const renderStars = () => {
     if (rating){
@@ -32,10 +32,10 @@ const ItemCard = ({ id,name, description, image, price, rating ,collectionName,a
       <div className="px-6 py-4">
         <div className="font-bold text-xl h-12 mb-2">{name}</div>
         <p className="text-gray-700 h-20 text-base">{description}</p>
-        <div className="mt-2 text-yellow-500">
+        {/* <div className="mt-2 text-yellow-500">
           {renderStars()}
-        </div>
-        <div className="mt-2 text-lg text-green-600 font-semibold">{price} IQD</div>
+        </div> */}
+        {demoMode&&<div className="mt-2 text-lg text-green-600 font-semibold">{price} IQD</div>}
       </div>
       <div className="m-auto pb-2">
         {action==="delete"?
@@ -72,7 +72,7 @@ ItemCard.propTypes = {
   description: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   action: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,  // Added price prop
+  price: PropTypes.number,  // Added price prop
   rating: PropTypes.number, // Added rating prop
   
 };

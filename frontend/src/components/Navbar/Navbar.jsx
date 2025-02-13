@@ -22,18 +22,21 @@ const Navbar = () => {
 const {loggedIn,setLoggedIn,setToken}=useContext(MyContext)
 localStorage.getItem("token")?()=>{setToken(localStorage.getItem("token"));setLoggedIn(true)}:setLoggedIn(false)
 const {setShowPopup}=useContext(MyContext)
+
+
+const {demoMode} = useContext(MyContext)
 return (
     <div className='bg-primary Navbar fixed top-0 w-full z-10 h-20 font-primary font-medium text-2xl flex ' >
 
         <div className='m-auto flex containers justify-between w-full h-16 text-tertiary'>
-            <Link to="/" className={`left-nav ${isActive==="home"?"active":""} mr-auto sm:mr-0  cursor-pointer`} onClick={()=>{setIsActive("home");scrollToSection("home");setShowPopup(false)}} >
+            <Link to={demoMode?"/?demo=true":"/"} className={`left-nav ${isActive==="home"?"active":""} mr-auto sm:mr-0  cursor-pointer`} onClick={()=>{setIsActive("home");scrollToSection("home");setShowPopup(false)}} >
                 <img src={logo} alt="logo" className='w-full h-full object-contain cursor-pointer'/>
             </Link>
 
             <div className='center-nav hidden sm:flex items-center pl-24'>
                 <ul className='flex gap-3' onClick={()=>setShowPopup(false)}>
                     
-                    <Link to="/" className={`${isActive==="tobacco"?"active":""} cursor-pointer`} onClick={()=>{
+                    <Link to={demoMode?"/?demo=true":"/"} className={`${isActive==="tobacco"?"active":""} cursor-pointer`} onClick={()=>{
                                                                                                         setIsActive("tobacco");
                                                                                                         {window.location.pathname==="/"?
                                                                                                             scrollToSection("tobacco"):
@@ -46,7 +49,7 @@ return (
                                                                                                         
                                                                                                         
                                                                                                         }}>Tobacco</Link>
-                    <Link to="/" className={`${isActive==="shisha"?"active":""} cursor-pointer`} onClick={()=>{
+                    <Link to={demoMode?"/?demo=true":"/"} className={`${isActive==="shisha"?"active":""} cursor-pointer`} onClick={()=>{
                                                                                                         setIsActive("shisha");
                                                                                                         {window.location.pathname==="/"?
                                                                                                             scrollToSection("shisha"):
@@ -59,7 +62,7 @@ return (
                                                                                                         
                                                                                                         
                                                                                                         }}>Shisha</Link>
-                    <Link to="/" className={`${isActive==="parts"?"active":""} cursor-pointer`}  onClick={()=>{
+                    <Link to={demoMode?"/?demo=true":"/"} className={`${isActive==="parts"?"active":""} cursor-pointer`}  onClick={()=>{
                                                                                                         setIsActive("parts");
                                                                                                         {window.location.pathname==="/"?
                                                                                                             scrollToSection("parts"):
@@ -73,7 +76,7 @@ return (
                                                                                                         
                                                                                                         }}>Parts</Link>
                     
-                    <Link to="/" className={`${isActive==="contact"?"active":""} cursor-pointer`} onClick={()=>{
+                    <Link to={demoMode?"/?demo=true":"/"} className={`${isActive==="contact"?"active":""} cursor-pointer`} onClick={()=>{
                                                                                                         setIsActive("contact");
                                                                                                         {window.location.pathname==="/"?
                                                                                                             scrollToSection("contact"):
@@ -92,7 +95,7 @@ return (
 
             <div className='right-nav hidden sm:flex items-center '>
                 <ul className='flex items-center gap-3'>
-                    <Link to="/cart" className={`${isActive==="cart"?"active":""} cursor-pointer`} onClick={()=>{setIsActive("cart");setShowPopup(false)}}>Cart</Link>
+                    <Link to={demoMode?"/cart?demo=true":"/cart"} className={`${isActive==="cart"?"active":""} cursor-pointer`} onClick={()=>{setIsActive("cart");setShowPopup(false)}}>Cart</Link>
                     {loggedIn?
                     <li className='relative'>
                         <div className='ppContaier h-8 w-8 bg-tertiary rounded-2xl cursor-pointer' onClick={()=>setUserOptionsIsVisible(!userOptionsIsVisible)}></div>
@@ -116,7 +119,7 @@ return (
                     <div className='absolute top-12 right-0 h-fit bg-tertiary rounded-md w-40'>
                         <ul className={` flex-col text-primary items-center gap-3 ${burgerOpen?"flex":"hidden"}`}>
                             
-                            <Link to="/" className={`${isActive==="tobacco"?"active":""} cursor-pointer`} onClick={()=>{
+                            <Link to={demoMode?"/?demo=true":"/"} className={`${isActive==="tobacco"?"active":""} cursor-pointer`} onClick={()=>{
                                                                                                         setIsActive("tobacco");
                                                                                                         {window.location.pathname==="/"?
                                                                                                             scrollToSection("tobacco"):
@@ -129,7 +132,7 @@ return (
                                                                                                         
                                                                                                         
                                                                                                         }}>Tobacco</Link>
-                    <Link to="/" className={`${isActive==="shisha"?"active":""} cursor-pointer`} onClick={()=>{
+                    <Link to={demoMode?"/?demo=true":"/"} className={`${isActive==="shisha"?"active":""} cursor-pointer`} onClick={()=>{
                                                                                                         setIsActive("shisha");
                                                                                                         {window.location.pathname==="/"?
                                                                                                             scrollToSection("shisha"):
@@ -142,7 +145,7 @@ return (
                                                                                                         
                                                                                                         
                                                                                                         }}>Shisha</Link>
-                    <Link to="/" className={`${isActive==="parts"?"active":""} cursor-pointer`}  onClick={()=>{
+                    <Link to={demoMode?"/?demo=true":"/"} className={`${isActive==="parts"?"active":""} cursor-pointer`}  onClick={()=>{
                                                                                                         setIsActive("parts");
                                                                                                         {window.location.pathname==="/"?
                                                                                                             scrollToSection("parts"):
@@ -156,7 +159,7 @@ return (
                                                                                                         
                                                                                                         }}>Parts</Link>
                     
-                    <Link to="/" className={`${isActive==="contact"?"active":""} cursor-pointer`} onClick={()=>{
+                    <Link to={demoMode?"/?demo=true":"/"} className={`${isActive==="contact"?"active":""} cursor-pointer`} onClick={()=>{
                                                                                                         setIsActive("contact");
                                                                                                         {window.location.pathname==="/"?
                                                                                                             scrollToSection("contact"):
@@ -170,7 +173,7 @@ return (
                                                                                                         
                                                                                                         }}>Contact</Link>
                     
-                    <Link to="/cart" className={`${isActive==="cart"?"active":""} cursor-pointer`} onClick={()=>setIsActive("cart")}>Cart</Link>
+                    <Link to={demoMode?"/cart?demo=true":"/cart"} className={`${isActive==="cart"?"active":""} cursor-pointer`} onClick={()=>setIsActive("cart")}>Cart</Link>
                             {loggedIn?
                             <li>
                                 <div className='ppContaier h-8 w-8 bg-tertiary rounded-2xl relative'>s</div>

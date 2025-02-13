@@ -30,7 +30,10 @@ const MyProvider = ({ children }) => {
     const [totPrice,setTotPrice]=useState(0)
     const [token,setToken]=useState("")
     const [renderer,setRenderer]=useState(true)
+    
 
+    const query = new URLSearchParams(window.location.search);
+    const demoMode = query.get("demo");
     const URL="https://tl-alrabaa-2.onrender.com"
 
     useEffect(()=>{
@@ -438,6 +441,7 @@ useEffect(()=>{
         shishaList,
         partsList,
         URL,
+        demoMode,
         addToCart,removeFromCart,
         findOne,
         totPrice,setTotPrice,
@@ -459,7 +463,8 @@ useEffect(()=>{
         shishaCartItems,setShishaCartItems,
         partsCartItems,setPartsCartItems,
         renderer,setRenderer,
-        getOrders
+        getOrders,
+       
     };
 
     return (

@@ -74,10 +74,10 @@ const Popup = () => {
 
     return (
         
-        <div className="flex fixed w-screen min-h-screen">
-            <div className="popup z-10 h-full w-full opacity-50 bg-black absolute flex justify-center" onClick={()=>setShowPopup(false)}></div>
-            <div className="containers  z-20 w-full h-full flex justify-center m-auto">
-                <div className="popupcontent w-full h-fit sm:w-4/6 sm:h-4/6 sm:left top-0 sm:top-10 bg-primary absolute z-30 rounded-xl flex flex-col ">
+        <div className="flex fixed w-screen min-h-screen just">
+            <div className="popup z-10 h-full w-full opacity-50 bg-black absolute flex " onClick={()=>setShowPopup(false)}></div>
+            <div className="containers  z-20 w-full h-full flex justify-center mx-auto ">
+                <div className="popupcontent w-full h-fit sm:w-4/6 sm:h-4/6 sm:left top-0 sm:top-10 bg-primary absolute z-30 rounded-xl flex flex-col items-stretch justify-center mt-">
                     <div className="upper flex justify-end text-tertiary font-extrabold text-3xl mb-5 mr-5 mt-5">
                         <h1 className="cursor-pointer" onClick={() => setShowPopup(false)}>X</h1>
                     </div>

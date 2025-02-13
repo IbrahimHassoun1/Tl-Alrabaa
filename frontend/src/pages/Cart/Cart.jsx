@@ -8,7 +8,7 @@ import SlideDownSection from '../../components/SlideDownSection/SlideDownSection
 import FadeInSection from '../../components/FadeInSection/FadeInSection';
 
 const Cart = () => {
-  const { cartItems, tobaccoList, shishaList, partsList, totPrice, showPopup, setTotPrice ,placeOrder,userId,tobaccoCartItems,shishaCartItems,partsCartItems} = useContext(MyContext);
+  const { cartItems, tobaccoList, shishaList, partsList, totPrice, showPopup, setTotPrice ,placeOrder,userId,tobaccoCartItems,shishaCartItems,partsCartItems,demoMode} = useContext(MyContext);
   
   
 
@@ -50,20 +50,20 @@ const Cart = () => {
             <FadeInSection className="content mt-4 mr-4 flex flex-col gap-5">
               <div className='flex sm:flex-col justify-between items-start'>
                 <h1 className='font-bold text-2xl'>Subtotal:</h1>
-                <h1 className='text-secondary font-bold text-2xl sm:mx-auto'>{totPrice}</h1>
+                <h1 className='text-secondary font-bold text-2xl sm:mx-auto'>{demoMode?totPrice:"N/A"}</h1>
               </div>
               <div className='flex sm:flex-col justify-between items-start'>
                 <h1 className='font-bold text-2xl'>Tax:</h1>
-                <h1 className='text-secondary font-bold text-2xl sm:mx-auto'>{totPrice * 0.1}</h1>
+                <h1 className='text-secondary font-bold text-2xl sm:mx-auto'>{demoMode?totPrice * 0.1:"N/A"}</h1>
               </div>
               <div className='flex sm:flex-col justify-between items-start'>
                 <h1 className='font-bold text-2xl'>Delivery:</h1>
-                <h1 className='text-secondary font-bold text-2xl sm:mx-auto'>{totPrice ? 2000 : 0}</h1>
+                <h1 className='text-secondary font-bold text-2xl sm:mx-auto'>{demoMode?(totPrice ? 2000 : 0):"N/A"}</h1>
               </div>
               <hr className='h-0.5 bg-gray-200 w-5/6 mx-auto' />
               <div className='flex sm:flex-col justify-between items-start'>
                 <h1 className='font-bold text-2xl'>Total:</h1>
-                <h1 className='text-secondary font-bold text-2xl sm:mx-auto'>{Math.round(totPrice ? totPrice * 1.1 + 2000 : 0)}</h1>
+                <h1 className='text-secondary font-bold text-2xl sm:mx-auto'>{demoMode?(Math.round(totPrice ? totPrice * 1.1 + 2000 : 0)):"N/A"}</h1>
               </div>
               <button className='h-10 w-full m-auto bg-secondary text-tertiary rounded-lg hover:opacity-95 active:opacity-85' onClick={()=>{placeOrder(userId,cartItems,Math.round(totPrice ? totPrice * 1.1 + 2000 : 0))}}>
                 Confirm Order

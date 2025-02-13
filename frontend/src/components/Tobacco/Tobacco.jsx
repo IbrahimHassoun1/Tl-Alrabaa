@@ -14,7 +14,9 @@ const Tobacco = () => {
   const [dropDownFlavor, setDropDownFlavor] = useState(true); // Changed to boolean
   const [selectedFlavor,setSelectedFlavor]=useState("")
   const [selectedSize,setSelectedSize]=useState("")
-  const {tobaccoList}=useContext(MyContext)
+  const {tobaccoList,demoMode}=useContext(MyContext)
+
+  
   const filteredTobaccos = tobaccoList.filter((item) => {
     return (
       (item.flavor === selectedFlavor && item.size === selectedSize) ||
@@ -24,7 +26,8 @@ const Tobacco = () => {
     );
   });
   
-
+  const sizeOrder = { large: 3, medium: 2, small: 1 };
+  filteredTobaccos.sort((a,b)=>sizeOrder[b.size] - sizeOrder[a.size])
   return (
     <div className="tobacco mb-5" id='tobacco'>
       <div className='containers m-auto'>
@@ -82,7 +85,7 @@ const Tobacco = () => {
                   name={item.name}
                   description={item.description}
                   image={item.image}
-                  price={item.price}
+                  price={demoMode?item.price:null}
                   rating={item.rating}
                   flavor={item.flavor}
                   action="add"
